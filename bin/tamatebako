@@ -15,9 +15,11 @@ require 'rubygems'
 require 'gli'
 require 'tamatebako_version'
 
+require 'cryptography/base64'
+
 include GLI
 
-program_desc 'Tamatebako is a small cli based toolbox'
+program_desc 'Tamatebako is a small cli based toolbox that might keep you safe.'
 
 version Tamatebako::VERSION
 
@@ -28,6 +30,22 @@ version Tamatebako::VERSION
 #default_value 'the default'
 #arg_name 'The name of the argument'
 #flag [:f,:flagname]
+
+desc 'Base64 encoder/decoder'
+arg_name 'string'
+command :base64 do |c|
+  c.desc 'Base64 encode argmuent'
+  c.switch [:e, :encode]
+
+	c.desc 'Decode Base64 argument'
+	c.switch [:d, :decode]
+
+	c.action do |global_options,options,args|
+		STDOUT << Tamatebako::Cryptography::Base64.encode(args.first) if options[:encode]
+		STDOUT << Tamatebako::Cryptography::Base64.decode(args.first) if options[:decode]
+		STDOUT << "\n"
+  end
+end
 
 pre do |global,command,options,args|
   # Pre logic here
