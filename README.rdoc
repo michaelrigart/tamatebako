@@ -1,0 +1,6 @@
+= tamatebako
+
+Describe your project here
+
+:include:tamatebako.rdoc
+

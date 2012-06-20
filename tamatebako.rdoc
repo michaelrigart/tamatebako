@@ -1,0 +1,5 @@
+= tamatebako
+
+Generate this with
+    tamatebako rdoc
+After you have described your command line interface
