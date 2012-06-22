@@ -17,6 +17,9 @@ require 'tamatebako_version'
 
 require 'cryptography/base64'
 require 'cryptography/digest'
+require 'cryptography/password'
+
+require 'network/port_scanner'
 
 include GLI
 
@@ -38,13 +41,13 @@ command :base64 do |c|
   c.desc 'Base64 encode argmuent'
   c.switch [:e, :encode]
 
-	c.desc 'Decode Base64 argument'
-	c.switch [:d, :decode]
+  c.desc 'Decode Base64 argument'
+  c.switch [:d, :decode]
 
-	c.action do |global_options,options,args|
-		STDOUT << Tamatebako::Cryptography::Base64.encode(args.first) if options[:encode]
-		STDOUT << Tamatebako::Cryptography::Base64.decode(args.first) if options[:decode]
-		STDOUT << "\n"
+  c.action do |global_options,options,args|
+    STDOUT << Tamatebako::Cryptography::Base64.encode(args.first) if options[:encode]
+    STDOUT << Tamatebako::Cryptography::Base64.decode(args.first) if options[:decode]
+    STDOUT << "\n"
   end
 end
 
@@ -56,8 +59,8 @@ command :digest do |c|
   c.flag [:t, :type]
 
   c.action do |global_options,options,args|
-		STDOUT << Tamatebako::Cryptography::Digest.hex(options[:t], args.first)
-		STDOUT << "\n"
+    STDOUT << Tamatebako::Cryptography::Digest.hex(options[:t], args.first)
+    STDOUT << "\n"
   end
 end
 
