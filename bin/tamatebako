@@ -64,6 +64,33 @@ command :digest do |c|
   end
 end
 
+desc 'Secure password generator'
+arg_name 'Describe arguments to generator here'
+command :password do |c|
+  c.desc 'Allow capital letters'
+  c.switch [:c, :capitals]
+
+  c.desc 'Allow numbers'
+  c.switch [:n, :numbers]
+
+  c.desc 'Allow special characters'
+  c.switch [:s, :specials]
+
+  c.desc 'Password length'
+  c.default_value 8
+  c.flag [:l, :length]
+
+  c.desc 'Unique characters only'
+  c.switch [:u, :unique]
+
+
+  c.action do |global_options,options,args|
+    generator = Tamatebako::Cryptography::Password.new(options)
+    STDOUT << "#{generator.generate}\n"
+  end
+end
+
+
 pre do |global,command,options,args|
   # Pre logic here
   # Return true to proceed; false to abort and not call the
