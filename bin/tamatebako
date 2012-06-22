@@ -18,8 +18,7 @@ require 'tamatebako_version'
 require 'cryptography/base64'
 require 'cryptography/digest'
 require 'cryptography/password'
-
-require 'network/port_scanner'
+require 'cryptography/cracker'
 
 include GLI
 
@@ -89,6 +88,35 @@ command :password do |c|
     STDOUT << "#{generator.generate}\n"
   end
 end
+
+desc 'Hash Password Cracker (MD5, SHA1, SHA256, SHA384, SHA512, RIPEMD-160)'
+arg_name 'Describe arguments to cracker here'
+command :cracker do |c|
+  c.desc 'Digest hash type'
+  c.default_value 'md5'
+  c.flag [:t, :type]
+
+  c.desc "Numbers bruteforce"
+  c.switch [:n, :numbers]
+
+  c.desc "Dictionary attack"
+  c.switch [:d, :dictionary]
+
+  c.desc 'Dictionary file'
+  c.default_value "#{File.dirname(File.realpath(__FILE__))}/../assets/wlist.txt"
+  c.flag [:f, :file]
+
+  c.desc 'Decrypt online (only MD5, SHA1, SHA256, RIPEMD-160'
+  c.switch [:o, :online]
+
+
+  c.action do |global_options,options,args|
+    STDOUT << "#{Tamatebako::Cryptography::Cracker.numbers(options[:t], args.first)}\n" if options[:n]
+    STDOUT << "#{Tamatebako::Cryptography::Cracker.dictionary(options[:t], options[:f], args.first)}\n" if options[:d]
+    STDOUT << "#{Tamatebako::Cryptography::Cracker.online(options[:t], args.first)}\n" if options[:o]
+  end
+end
+
 
 
 pre do |global,command,options,args|

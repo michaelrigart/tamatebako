@@ -22,5 +22,7 @@ lib/tamatebako_version.rb
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_runtime_dependency('gli')
-	s.add_runtime_dependency('socksify')
+  s.add_runtime_dependency('curb')
+  s.add_runtime_dependency('nokogiri')
+  s.add_runtime_dependency('socksify')
 end
