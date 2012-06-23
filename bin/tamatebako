@@ -20,6 +20,8 @@ require 'cryptography/digest'
 require 'cryptography/password'
 require 'cryptography/cracker'
 
+require 'network/port_scanner'
+
 include GLI
 
 program_desc 'Tamatebako is a small cli based toolbox that might keep you safe.'
@@ -117,7 +119,26 @@ command :cracker do |c|
   end
 end
 
+desc 'Simple port scanner'
+arg_name 'Describe arguments to generator here'
+command :portscan do |c|
+  c.desc "Host address"
+  c.default_value "127.0.0.1"
+  c.flag [:h, :host]
 
+  c.desc "Port range"
+  c.default_value "0-65535"
+  c.flag [:p, :port]
+
+  c.action do |global_options,options,args|
+    STDOUT << "PORT\t\tSERVICE\n"
+    start_time = Time.now
+
+    Tamatebako::Network::PortScanner.tcp_scan(options[:h], options[:p])
+
+    STDOUT << "\n#{options[:h]} scanned in #{Time.now - start_time} seconds\n"
+  end
+end
 
 pre do |global,command,options,args|
   # Pre logic here
