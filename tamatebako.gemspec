@@ -25,5 +25,4 @@ lib/tamatebako_version.rb
   s.add_runtime_dependency('curb')
   s.add_runtime_dependency('nokogiri')
   s.add_runtime_dependency('socksify')
-  s.add_runtime_dependency('bcrypt-ruby')
 end

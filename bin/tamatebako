@@ -17,7 +17,6 @@ require 'tamatebako_version'
 
 require 'cryptography/base64'
 require 'cryptography/digest'
-require 'cryptography/encryption'
 require 'cryptography/password'
 require 'cryptography/cracker'
 
@@ -62,19 +61,6 @@ command :digest do |c|
 
   c.action do |global_options,options,args|
     STDOUT << Tamatebako::Cryptography::Digest.hex(options[:t], args.first)
-    STDOUT << "\n"
-  end
-end
-
-desc 'Encryption (bcrypt)'
-arg_name 'Describe arguments to encryption here'
-command :encrypt do |c|
-  c.desc 'Encrytion algorithm'
-  c.default_value 'bcrypt'
-  c.flag [:t, :type]
-
-  c.action do |global_options,options,args|
-    STDOUT << Tamatebako::Cryptography::Encryption.encrypt(options[:t], args.first)
     STDOUT << "\n"
   end
 end
