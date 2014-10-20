@@ -21,6 +21,7 @@ require 'cryptography/password'
 require 'cryptography/cracker'
 
 require 'network/port_scanner'
+require 'network/slow_http'
 
 include GLI
 
@@ -137,6 +138,18 @@ command :portscan do |c|
     Tamatebako::Network::PortScanner.tcp_scan(options[:h], options[:p])
 
     STDOUT << "\n#{options[:h]} scanned in #{Time.now - start_time} seconds\n"
+  end
+end
+
+desc 'Slow http'
+arg_name 'Describe arguments to generator here'
+command :slowhttp do |c|
+  c.desc "Host address"
+  c.default_value "127.0.0.1"
+  c.flag [:h, :host]
+
+  c.action do |global_options, options, args|
+    Tamatebako::Network::SlowHttp.post(options[:h])
   end
 end
 

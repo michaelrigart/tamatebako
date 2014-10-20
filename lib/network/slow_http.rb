@@ -9,12 +9,12 @@ module Tamatebako
       end
 
 
-      def post()
+      def self.post(host)
         headers =
             [
                     "POST / HTTP/1.1",
-                    "Host: #{self.host}",
-                    "User-Agent: #{user_agents.sample}",
+                    "Host: #{host}",
+                    "User-Agent: #{self.user_agents.sample}",
                     "Connection: keep-alive",
                     "Keep-Alive: 10000",
                     "Content-Type: application/x-www-form-urlencoded\r\n\r\n"
@@ -38,7 +38,7 @@ module Tamatebako
 
       private
 
-      def user_agents
+      def self.user_agents
         [
           "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; .NET CLR 1.1.4322; .NET CLR 2.0.50727; .NET CLR 3.0.04506.30)",
           "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)",
